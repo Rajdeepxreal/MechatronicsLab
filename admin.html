@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Mechatronics Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-200">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div id="admin-panel" class="bg-white p-8 rounded-lg shadow-lg w-full max-w-2xl hidden">
+            <h1 class="text-3xl font-bold text-center mb-6">Admin Dashboard</h1>
+            
+            <!-- Add Publication Section -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Add New Publication</h2>
+                <form id="publication-form">
+                    <div class="mb-4">
+                        <label for="pub-title" class="block text-gray-700 font-medium mb-2">Title</label>
+                        <input type="text" id="pub-title" class="w-full px-4 py-2 border rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="pub-authors" class="block text-gray-700 font-medium mb-2">Authors</label>
+                        <input type="text" id="pub-authors" class="w-full px-4 py-2 border rounded-lg" placeholder="e.g., Sarma, A., Das, S." required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="pub-journal" class="block text-gray-700 font-medium mb-2">Journal / Conference</label>
+                        <input type="text" id="pub-journal" class="w-full px-4 py-2 border rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="pub-year" class="block text-gray-700 font-medium mb-2">Year</label>
+                        <input type="number" id="pub-year" class="w-full px-4 py-2 border rounded-lg" placeholder="e.g., 2024" required>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg">Add Publication</button>
+                    <p id="pub-status" class="mt-4 text-center"></p>
+                </form>
+            </div>
+
+            <!-- Add Student Resource Section -->
+            <div>
+                <h2 class="text-2xl font-semibold mb-4 border-b pb-2">Upload to Students' Corner</h2>
+                <form id="resource-form">
+                    <div class="mb-4">
+                        <label for="res-title" class="block text-gray-700 font-medium mb-2">Title</label>
+                        <input type="text" id="res-title" class="w-full px-4 py-2 border rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="res-desc" class="block text-gray-700 font-medium mb-2">Description</label>
+                        <input type="text" id="res-desc" class="w-full px-4 py-2 border rounded-lg" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-medium mb-2">Resource Type</label>
+                        <select id="res-type" class="w-full px-4 py-2 border rounded-lg">
+                            <option value="file">File (PDF, Doc, etc.)</option>
+                            <option value="link">Link</option>
+                        </select>
+                    </div>
+                    <div id="file-upload-section" class="mb-4">
+                        <label for="res-file" class="block text-gray-700 font-medium mb-2">Upload File</label>
+                        <input type="file" id="res-file" class="w-full">
+                    </div>
+                    <div id="link-upload-section" class="mb-4 hidden">
+                        <label for="res-link" class="block text-gray-700 font-medium mb-2">Paste Link URL</label>
+                        <input type="url" id="res-link" class="w-full px-4 py-2 border rounded-lg" placeholder="https://example.com">
+                    </div>
+                    <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg">Add Resource</button>
+                    <p id="res-status" class="mt-4 text-center"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyAEkoTxVG1_GJnMLpD3iASw3BveRHlNQIE",
+    authDomain: "me-mechatronics-lab-website.firebaseapp.com",
+    projectId: "me-mechatronics-lab-website",
+    storageBucket: "me-mechatronics-lab-website.firebasestorage.app",
+    messagingSenderId: "876104574829",
+    appId: "1:876104574829:web:1f76814b0c1c089ca1dc64"
+  };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Simple password protection
+        const correctPassword = "mechatronics"; // Change this to a secure password
+        let password = prompt("Enter admin password:");
+        if (password === correctPassword) {
+            document.getElementById('admin-panel').classList.remove('hidden');
+        } else {
+            alert("Incorrect password!");
+            window.location.href = './index.html';
+        }
+
+        // Handle Publication Form
+        const pubForm = document.getElementById('publication-form');
+        const pubStatus = document.getElementById('pub-status');
+        pubForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            pubStatus.textContent = 'Uploading...';
+            pubStatus.className = 'text-blue-600 mt-4 text-center';
+            try {
+                await addDoc(collection(db, "publications"), {
+                    title: pubForm['pub-title'].value,
+                    authors: pubForm['pub-authors'].value,
+                    journal: pubForm['pub-journal'].value,
+                    year: Number(pubForm['pub-year'].value)
+                });
+                pubStatus.textContent = 'Publication added successfully!';
+                pubStatus.className = 'text-green-600 mt-4 text-center';
+                pubForm.reset();
+            } catch (error) {
+                pubStatus.textContent = 'Error: ' + error.message;
+                pubStatus.className = 'text-red-600 mt-4 text-center';
+            }
+        });
+
+        // Handle Resource Form
+        const resForm = document.getElementById('resource-form');
+        const resStatus = document.getElementById('res-status');
+        const resTypeSelect = document.getElementById('res-type');
+        const fileSection = document.getElementById('file-upload-section');
+        const linkSection = document.getElementById('link-upload-section');
+
+        resTypeSelect.addEventListener('change', (e) => {
+            if (e.target.value === 'file') {
+                fileSection.classList.remove('hidden');
+                linkSection.classList.add('hidden');
+            } else {
+                fileSection.classList.add('hidden');
+                linkSection.classList.remove('hidden');
+            }
+        });
+
+        resForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            resStatus.textContent = 'Uploading...';
+            resStatus.className = 'text-blue-600 mt-4 text-center';
+
+            const title = resForm['res-title'].value;
+            const description = resForm['res-desc'].value;
+            const type = resForm['res-type'].value;
+            let url = '';
+
+            try {
+                if (type === 'file') {
+                    const file = resForm['res-file'].files[0];
+                    if (!file) throw new Error("Please select a file to upload.");
+                    const storageRef = ref(storage, `student_resources/${Date.now()}_${file.name}`);
+                    const snapshot = await uploadBytes(storageRef, file);
+                    url = await getDownloadURL(snapshot.ref);
+                } else {
+                    url = resForm['res-link'].value;
+                    if (!url) throw new Error("Please enter a link URL.");
+                }
+
+                await addDoc(collection(db, "student_resources"), {
+                    title,
+                    description,
+                    type,
+                    url,
+                    uploadedAt: serverTimestamp()
+                });
+
+                resStatus.textContent = 'Resource added successfully!';
+                resStatus.className = 'text-green-600 mt-4 text-center';
+                resForm.reset();
+                fileSection.classList.remove('hidden');
+                linkSection.classList.add('hidden');
+
+            } catch (error) {
+                resStatus.textContent = 'Error: ' + error.message;
+                resStatus.className = 'text-red-600 mt-4 text-center';
+            }
+        });
+    </script>
+</body>
+</html>

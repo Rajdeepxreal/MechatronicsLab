@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publications | Mechatronics & Robotics Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-700">
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="images/Tezpur_University_logo.png" onerror="this.onerror=null;this.src='https://placehold.co/60x60/cccccc/000000?text=Logo';" alt="Tezpur University Logo" class="h-16 w-16 object-contain">
+                <span class="text-xl font-bold text-gray-800">Mechatronics & Robotics Lab, Tezpur University</span>
+            </a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="text-gray-600 hover:text-blue-600">Home</a>
+                <a href="index.html#about" class="text-gray-600 hover:text-blue-600">About</a>
+                <a href="research.html" class="text-gray-600 hover:text-blue-600">Research</a>
+                <a href="people.html" class="text-gray-600 hover:text-blue-600">People</a>
+                <a href="publications.html" class="text-blue-600 font-semibold">Publications</a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-600">Contact</a>
+                <a href="students_corner.html" class="bg-blue-100 text-blue-700 px-3 py-2 rounded-md hover:bg-blue-200">Students' Corner</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden"><i data-feather="menu" class="w-6 h-6"></i></button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block py-2 text-gray-600 hover:text-blue-600">Home</a>
+            <a href="index.html#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+            <a href="research.html" class="block py-2 text-gray-600 hover:text-blue-600">Research</a>
+            <a href="people.html" class="block py-2 text-gray-600 hover:text-blue-600">People</a>
+            <a href="publications.html" class="block py-2 text-blue-600 font-semibold">Publications</a>
+            <a href="index.html#contact" class="block py-2 text-gray-600 hover:text-blue-600">Contact</a>
+            <a href="students_corner.html" class="block py-2 text-gray-600 hover:text-blue-600">Students' Corner</a>
+        </div>
+    </header>
+
+    <main class="py-20">
+        <div class="container mx-auto px-6">
+            <h1 class="section-title">Publications</h1>
+            <div id="publications-list" class="space-y-6 max-w-4xl mx-auto">
+                <!-- Publications will be dynamically loaded here -->
+                <div class="text-center p-8">
+                    <p class="text-gray-500">Loading publications...
+
+
+
+
+                        backend is being made
+
+
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 Mechatronics & Robotics Lab, Tezpur University. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+    apiKey: "AIzaSyAEkoTxVG1_GJnMLpD3iASw3BveRHlNQIE",
+    authDomain: "me-mechatronics-lab-website.firebaseapp.com",
+    projectId: "me-mechatronics-lab-website",
+    storageBucket: "me-mechatronics-lab-website.firebasestorage.app",
+    messagingSenderId: "876104574829",
+    appId: "1:876104574829:web:1f76814b0c1c089ca1dc64"
+  };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        const publicationsList = document.getElementById('publications-list');
+        const q = query(collection(db, "publications"), orderBy("year", "desc"));
+
+        onSnapshot(q, (querySnapshot) => {
+            publicationsList.innerHTML = '';
+            if (querySnapshot.empty) {
+                publicationsList.innerHTML = '<p class="text-center text-gray-500">No publications found.</p>';
+                return;
+            }
+            querySnapshot.forEach((doc) => {
+                const pub = doc.data();
+                const pubElement = document.createElement('div');
+                pubElement.className = 'bg-white p-6 rounded-lg shadow-sm';
+                pubElement.innerHTML = `
+                    <p class="font-bold">"${pub.title}"</p>
+                    <p class="text-sm text-gray-600">${pub.authors} (${pub.year}). <em>${pub.journal}</em>.</p>
+                `;
+                publicationsList.appendChild(pubElement);
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

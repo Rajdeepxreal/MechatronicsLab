@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mechatronics & Robotics Lab | Tezpur University</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gray-50 text-gray-700">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center space-x-3">
+                <img src="images/Tezpur_University_logo.png" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/60x60/cccccc/000000?text=Logo';"
+                     alt="Tezpur University Logo" 
+                     class="h-16 w-16 object-contain">
+                <span class="text-xl font-bold text-gray-800">Mechatronics & Robotics Lab, Tezpur University</span>
+            </a>
+            <!-- Desktop Navigation -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="index.html" class="text-blue-600 font-semibold transition duration-300">Home</a>
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300">About</a>
+                <a href="research.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Research</a>
+                <a href="people.html" class="text-gray-600 hover:text-blue-600 transition duration-300">People</a>
+                <a href="publications.html" class="text-gray-600 hover:text-blue-600 transition duration-300">Publications</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">Contact</a>
+                <a href="students_corner.html" class="bg-blue-100 text-blue-700 px-3 py-2 rounded-md hover:bg-blue-200 transition duration-300">Students' Corner</a>
+            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden">
+                <i data-feather="menu" class="w-6 h-6"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block py-2 text-blue-600 font-semibold">Home</a>
+            <a href="#about" class="block py-2 text-gray-600 hover:text-blue-600">About</a>
+            <a href="research.html" class="block py-2 text-gray-600 hover:text-blue-600">Research</a>
+            <a href="people.html" class="block py-2 text-gray-600 hover:text-blue-600">People</a>
+            <a href="publications.html" class="block py-2 text-gray-600 hover:text-blue-600">Publications</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-blue-600">Contact</a>
+            <a href="students_corner.html" class="block py-2 text-gray-600 hover:text-blue-600">Students' Corner</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero-bg h-screen flex items-center justify-center text-white">
+            <div class="text-center px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Innovating the Future of Automation</h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Welcome to the Mechatronics and Robotics Lab at Tezpur University. We are at the forefront of research in intelligent systems, automation, and human-robot interaction.</p>
+                <a href="research.html" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg">Explore Our Research</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">A Legacy of Excellence in Engineering</h2>
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">The Department of Mechanical Engineering</h3>
+                        <p class="mb-4 text-lg">Established in 2006, our department has grown into a nationally recognized, NBA-accredited center for engineering. We are committed to nurturing technical pioneers through AICTE-approved B.Tech, M.Tech, and PhD programs, addressing the critical infrastructural and industrial needs of the nation.</p>
+                        <p class="text-lg">Our vision is to be a beacon of excellence, producing quality engineers and conducting cutting-edge research that makes a tangible impact.</p>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/600x400/E0E7FF/3B82F6?text=University+Campus" alt="Tezpur University Campus" class="rounded-lg shadow-xl w-full h-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Our Mission in Action</h2>
+                <div class="grid md:grid-cols-3 gap-8 text-center">
+                    <!-- Mission Card 1 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex justify-center mb-4">
+                            <i data-feather="users" class="w-12 h-12 text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Educate & Empower</h3>
+                        <p>To provide a strong foundation in mechanical engineering, while instilling human values, self-confidence, and independent thinking in every student.</p>
+                    </div>
+                    <!-- Mission Card 2 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex justify-center mb-4">
+                            <i data-feather="cpu" class="w-12 h-12 text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Innovate & Research</h3>
+                        <p>To conduct research that addresses critical global challenges, from sustainable energy management to the development of alternative resources and smart systems.</p>
+                    </div>
+                    <!-- Mission Card 3 -->
+                    <div class="bg-gray-50 p-8 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+                        <div class="flex justify-center mb-4">
+                            <i data-feather="briefcase" class="w-12 h-12 text-blue-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Serve Society</h3>
+                        <p>To produce high-quality engineering professionals equipped with the latest technologies to serve heavy engineering, manufacturing, and the nation at large.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-6">Contact Us</h3>
+                        <form id="contactForm">
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Name</label>
+                                <input type="text" id="name" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Message</label>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Send Message</button>
+                        </form>
+                        <div id="form-status" class="mt-4 text-center"></div>
+                    </div>
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-6">Our Location</h3>
+                        <p class="mb-4">
+                            Mechatronics & Robotics Lab<br>
+                            Dept. of Mechanical Engineering<br>
+                            Tezpur University<br>
+                            Napaam, Tezpur, Assam 784028
+                        </p>
+                        <div class="h-80 rounded-lg overflow-hidden">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3567.398534888065!2d92.8276088150383!3d26.60395898326156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3744f6e1f7a4a5b1%3A0x8e2c5e5e5e5e5e5e!2sDepartment%20of%20Mechanical%20Engineering%2C%20Tezpur%20University!5e0!3m2!1sen!2sin!4v1678886452345" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-10">
+        <div class="container mx-auto px-8 text-center">
+            <p>&copy; 2024 Mechatronics & Robotics Lab, Tezpur University. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- ADDED: Firebase SDK for contact form -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        // IMPORTANT: Replace with your actual Firebase configuration
+        const firebaseConfig = {
+    apiKey: "AIzaSyAEkoTxVG1_GJnMLpD3iASw3BveRHlNQIE",
+    authDomain: "me-mechatronics-lab-website.firebaseapp.com",
+    projectId: "me-mechatronics-lab-website",
+    storageBucket: "me-mechatronics-lab-website.firebasestorage.app",
+    messagingSenderId: "876104574829",
+    appId: "1:876104574829:web:1f76814b0c1c089ca1dc64"
+  };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // This makes the 'db' instance available to the global script.js file
+        window.db = db;
+        window.serverTimestamp = serverTimestamp;
+        window.addDoc = addDoc;
+        window.collection = collection;
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
